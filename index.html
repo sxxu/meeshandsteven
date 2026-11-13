@@ -19,32 +19,23 @@
     body { margin: 0; }
 
     /* Photo fills the top of the screen; the countdown peeks in just below it. */
-    .hero { position: relative; height: calc(100svh - 170px); min-height: 520px; overflow: hidden; background: #3664a8; }
+    .hero { position: relative; height: calc(100svh - 120px); min-height: 480px; overflow: hidden; background: #3664a8; }
     .hero picture, .hero img { display: block; width: 100%; height: 100%; }
     .hero img { object-fit: cover; object-position: 50% 80%; }
 
-    .words { position: absolute; z-index: 1; color: #fff; font-family: var(--display); font-weight: 500;
-      text-shadow: 0 1px 14px rgba(20, 45, 90, .35); }
-    .words p, .words h1 { margin: 0; font-weight: 500; }
-    .names { font-size: clamp(19px, 2.4vw, 64px); letter-spacing: .07em; line-height: 1.3; }
-    .save  { font-size: clamp(28px, 3.9vw, 104px); letter-spacing: .07em; line-height: 1.2; margin-top: .35em !important; }
-    .when  { font-size: clamp(16px, 1.9vw, 50px); letter-spacing: .12em; line-height: 1.4; margin-top: .4em !important; }
-    .where { font-size: clamp(15px, 1.7vw, 44px); letter-spacing: .14em; line-height: 1.4; margin-top: .15em !important; }
+    /* Tall screens (phones, tablets held upright) use the portrait photo. */
+    @media (orientation: portrait) { .hero img { object-position: 50% 75%; } }
 
-    /* Wide screens: photo is landscape, words sit in the open sky on the left. */
-    .words { left: clamp(24px, 7vw, 150px); top: clamp(36px, 9%, 120px); text-align: left; }
+    /* The details sit on the page, below the photo. */
+    .details { text-align: center; padding: 46px 24px 6px; font-family: var(--display); }
+    .details > * { margin: 0; font-weight: 500; }
+    .names { font-size: clamp(22px, 3.6vw, 40px); letter-spacing: .07em; line-height: 1.3; }
+    .save  { font-size: clamp(34px, 6.4vw, 72px); letter-spacing: .07em; line-height: 1.15; margin-top: .3em; }
+    .when  { font-size: clamp(18px, 2.8vw, 30px); letter-spacing: .12em; line-height: 1.4; margin-top: .5em; }
+    .where { font-size: clamp(16px, 2.4vw, 26px); letter-spacing: .14em; line-height: 1.4; margin-top: .15em; color: #687166; }
 
-    /* Tall screens (phones, tablets held upright): portrait photo, words centered. */
-    @media (orientation: portrait) {
-      .words { left: 0; right: 0; top: 7%; padding: 0 16px; text-align: center; }
-      .names { font-size: clamp(18px, 5.4vw, 30px); }
-      .save  { font-size: clamp(28px, 8vw, 46px); }
-      .when  { font-size: clamp(16px, 4.4vw, 24px); }
-      .where { font-size: clamp(15px, 4vw, 21px); }
-      .hero img { object-position: 50% 75%; }
-    }
-
-    .countdown { width: min(100%, 460px); margin: 0 auto; text-align: center; padding: 25px 20px 34px; }
+    .countdown { width: min(100%, 460px); margin: 0 auto; text-align: center; padding: 30px 20px 40px; }
+    .countdown::before { content: ""; display: block; width: 40px; height: 1px; background: #c9c4b8; margin: 0 auto 30px; }
     h2 { font-size: 12px; line-height: 1.5; font-weight: normal; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 18px; }
     .clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; font-variant-numeric: tabular-nums; }
     .number { display: block; font-size: clamp(28px, 5vw, 38px); line-height: 1; }
@@ -61,13 +52,13 @@
         <img src="hero-landscape.jpg" width="1536" height="1024" fetchpriority="high" decoding="async"
           alt="Two hands reach toward each other in a clear blue sky: one offering an open ring box, the other holding a bouquet of white flowers tied with a red ribbon.">
       </picture>
-      <div class="words">
-        <h1 class="names">Michelle Chuang &amp; Steven Xu</h1>
-        <p class="save">Save the Weekend</p>
-        <p class="when">September 17–19, 2027</p>
-        <p class="where">Point Reyes, California</p>
-      </div>
     </header>
+    <section class="details">
+      <h1 class="names">Michelle Chuang &amp; Steven Xu</h1>
+      <p class="save">Save the Weekend</p>
+      <p class="when">September 17–19, 2027</p>
+      <p class="where">Point Reyes, California</p>
+    </section>
     <section class="countdown" aria-labelledby="countdown-title">
       <h2 id="countdown-title">Counting down to our wedding weekend</h2>
       <div class="clock" role="timer" aria-label="Time remaining until September 17, 2027 at 5 p.m. Pacific">
