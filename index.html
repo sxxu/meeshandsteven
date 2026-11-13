@@ -4,100 +4,163 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Save the weekend for Michelle Chuang and Steven Xu. September 17–19, 2027 · Point Reyes, California.">
-  <meta name="theme-color" content="#3664a8">
+  <meta name="theme-color" content="#3969af">
   <title>Michelle &amp; Steven · Save the Weekend</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Parisienne&display=swap">
   <style>
     :root {
-      color-scheme: light; background: #f7f3eb; color: #343f35;
+      color-scheme: light; background: #6c9bd1; color: #fff;
       font-family: Georgia, 'Times New Roman', serif;
-      --display: 'Cormorant Garamond', Garamond, Georgia, 'Times New Roman', serif;
+      --serif: 'Cormorant Garamond', 'TeX Gyre Pagella', Georgia, 'Times New Roman', serif;
+      --script: 'Parisienne', 'Snell Roundhand', 'Apple Chancery', 'Segoe Script', cursive;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; }
-
-    /* Photo fills the top of the screen; the countdown peeks in just below it. */
-    .hero { position: relative; height: calc(100svh - 120px); min-height: 480px; overflow: hidden; background: #3664a8; }
-    .hero picture, .hero img { display: block; width: 100%; height: 100%; }
-    .hero img { object-fit: cover; object-position: 50% 80%; }
-
-    /* Tall screens (phones, tablets held upright) use the portrait photo. */
-    @media (orientation: portrait) { .hero img { object-position: 50% 75%; } }
-
-    /* The details sit on the page, below the photo. */
-    .details { text-align: center; padding: 46px 24px 6px; font-family: var(--display); }
-    .details > * { margin: 0; font-weight: 500; }
-    .names { font-size: clamp(22px, 3.6vw, 40px); letter-spacing: .07em; line-height: 1.3; }
-    .save  { font-size: clamp(34px, 6.4vw, 72px); letter-spacing: .07em; line-height: 1.15; margin-top: .3em; }
-    .when  { font-size: clamp(18px, 2.8vw, 30px); letter-spacing: .12em; line-height: 1.4; margin-top: .5em; }
-    .where { font-size: clamp(16px, 2.4vw, 26px); letter-spacing: .14em; line-height: 1.4; margin-top: .15em; color: #687166; }
-
-    .countdown { width: min(100%, 460px); margin: 0 auto; text-align: center; padding: 30px 20px 40px; }
-    .countdown::before { content: ""; display: block; width: 40px; height: 1px; background: #c9c4b8; margin: 0 auto 30px; }
-    h2 { font-size: 12px; line-height: 1.5; font-weight: normal; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 18px; }
-    .clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; font-variant-numeric: tabular-nums; }
-    .number { display: block; font-size: clamp(28px, 5vw, 38px); line-height: 1; }
-    .unit { display: block; font: 9px/1.6 Arial, sans-serif; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; color: #687166; }
-    .date { font-size: 11px; color: #687166; line-height: 1.5; margin: 17px 0 0; }
+    body { margin: 0; background: #6c9bd1; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
     [hidden] { display: none !important; }
+
+    .top, .bottom { text-align: center; font-family: var(--serif); color: #fff; text-shadow: 0 1px 12px rgba(20, 45, 90, .34); }
+    .top h1, .top p, .bottom p { margin: 0; font-weight: 500; }
+
+    .names { letter-spacing: .06em; line-height: 1.3; white-space: nowrap; margin-left: auto; margin-right: auto; }
+    .save  { font-family: var(--script); font-weight: 400; line-height: 1.3; white-space: nowrap;
+             margin: .12em auto 0; padding-bottom: .06em; }
+    .when  { letter-spacing: .12em; line-height: 1.4; }
+    .where { letter-spacing: .14em; line-height: 1.4; margin-top: .12em !important; }
+
+    /* The sky-colored bands continue the photo's own sky: the extension image is anchored to the
+       photo edge, with a matching flat far-sky colour filling the rest of the band. */
+    .top    { background-repeat: no-repeat; background-size: 100% auto; background-position: center bottom; }
+    .bottom { background-repeat: no-repeat; background-size: 100% auto; background-position: center top; }
+
+    /* Photo: full-bleed, top rows cropped so its top edge meets the sky-top image's bottom edge. */
+    .photo { overflow: hidden; }
+    .photo img { display: none; width: 100%; }
+
+    /* ---------- Phones and other tall screens: portrait photo ---------- */
+    @media (orientation: portrait) {
+      .top    { background-color: #3969af; background-image: url(sky-top-portrait.jpg); padding: 42px 36px 22px; }
+      .bottom { background-color: #8fadca; background-image: url(sky-bottom-portrait.jpg); padding: 24px 18px 40px; }
+      .photo  { aspect-ratio: 1024 / 976; }
+      .photo img.p { display: block; margin-top: -54.688%; }   /* native 1024×1536, cropped from row 560 */
+      .names { font-size: 44px; max-width: 94%; }               /* auto-fit shrinks to one wide line */
+      .save  { font-size: 64px; max-width: 66%; }               /* narrower than the names, by design */
+      .when  { font-size: 23px; }
+      .where { font-size: 19px; }
+      .number { font-size: 36px; }
+    }
+
+    /* ---------- Laptops and other wide screens: landscape photo ---------- */
+    @media (orientation: landscape) {
+      .top    { background-color: #2c5697; background-image: url(sky-top-landscape.jpg); padding: clamp(40px, 7vh, 90px) 24px clamp(26px, 4vh, 48px); }
+      .bottom { background-color: #83a5cb; background-image: url(sky-bottom-landscape.jpg); padding: clamp(28px, 4vh, 52px) 24px clamp(40px, 7vh, 72px); }
+      .photo  { aspect-ratio: 1536 / 774; }
+      .photo img.l { display: block; margin-top: -16.276%; }    /* native 1536×1024, cropped from row 250 */
+      .names { font-size: 64px; max-width: 46%; }
+      .save  { font-size: 112px; max-width: 52%; }
+      .when  { font-size: 34px; }
+      .where { font-size: 28px; }
+      .number { font-size: 48px; }
+    }
+
+    .countdown { width: min(100%, 460px); margin: 0 auto; padding: 24px 20px 0; text-align: center; font-family: Georgia, 'Times New Roman', serif; }
+    .countdown::before { content: ""; display: block; width: 40px; height: 1px; background: rgba(255, 255, 255, .6); margin: 0 auto 26px; }
+    .clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; font-variant-numeric: tabular-nums; }
+    .number { display: block; line-height: 1; }
+    .unit { display: block; font: 12px/1.6 Arial, sans-serif; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; color: rgba(255, 255, 255, .9); }
   </style>
 </head>
 <body>
   <main>
     <header class="hero">
-      <picture>
-        <source media="(orientation: portrait)" srcset="hero-portrait.jpg" width="1024" height="1536">
-        <img src="hero-landscape.jpg" width="1536" height="1024" fetchpriority="high" decoding="async"
-          alt="Two hands reach toward each other in a clear blue sky: one offering an open ring box, the other holding a bouquet of white flowers tied with a red ribbon.">
-      </picture>
-    </header>
-    <section class="details">
-      <h1 class="names">Michelle Chuang &amp; Steven Xu</h1>
-      <p class="save">Save the Weekend</p>
-      <p class="when">September 17–19, 2027</p>
-      <p class="where">Point Reyes, California</p>
-    </section>
-    <section class="countdown" aria-labelledby="countdown-title">
-      <h2 id="countdown-title">Counting down to our wedding weekend</h2>
-      <div class="clock" role="timer" aria-label="Time remaining until September 17, 2027 at 5 p.m. Pacific">
-        <div><span class="number" id="days">—</span><span class="unit">Days</span></div>
-        <div><span class="number" id="hours">—</span><span class="unit">Hours</span></div>
-        <div><span class="number" id="minutes">—</span><span class="unit">Minutes</span></div>
-        <div><span class="number" id="seconds">—</span><span class="unit">Seconds</span></div>
+      <section class="top">
+        <h1 class="names" id="names">Michelle Chuang &amp; Steven Xu</h1>
+        <p class="save" id="save">Save the Weekend</p>
+      </section>
+      <div class="photo">
+        <img class="l" src="hero-landscape.jpg" width="1536" height="1024" fetchpriority="high" decoding="async"
+          alt="Two hands reach toward each other against a clear blue sky: one offering an open ring box, the other a bouquet of white flowers tied with a red ribbon.">
+        <img class="p" src="hero-portrait.jpg" width="1024" height="1536" fetchpriority="high" decoding="async" alt="">
       </div>
-      <p class="date"><time datetime="2027-09-17T17:00:00-07:00">September 17, 2027 · 5:00 p.m. Pacific</time></p>
-      <noscript><p class="date">Enable JavaScript to see the live countdown.</p></noscript>
-    </section>
+      <section class="bottom">
+        <p class="when" id="when">September 17–19, 2027</p>
+        <p class="where" id="where">Point Reyes, California</p>
+        <div class="countdown" id="countdown">
+          <h2 class="sr-only" id="countdown-title">Counting down to our wedding weekend</h2>
+          <div class="clock" role="timer" aria-label="Time remaining until September 17, 2027 at 5 p.m. Pacific">
+            <div><span class="number" id="days">—</span><span class="unit">Days</span></div>
+            <div><span class="number" id="hours">—</span><span class="unit">Hours</span></div>
+            <div><span class="number" id="minutes">—</span><span class="unit">Minutes</span></div>
+            <div><span class="number" id="seconds">—</span><span class="unit">Seconds</span></div>
+          </div>
+          <noscript><p style="margin:16px 0 0;font:12px Arial,sans-serif;color:#fff">Enable JavaScript to see the live countdown.</p></noscript>
+        </div>
+      </section>
+    </header>
   </main>
   <script>
-    // September 17 is in Pacific Daylight Time. An explicit offset ensures
-    // every visitor counts down to the same instant, in any time zone.
+    const $ = id => document.getElementById(id);
+    const names = $('names'), save = $('save');
+    const fields = ['days', 'hours', 'minutes', 'seconds'].map($);
+    // September 17 is in Pacific Daylight Time. An explicit offset keeps every visitor on the same instant.
     const weddingTime = Date.parse('2027-09-17T17:00:00-07:00');
-    const fields = ['days', 'hours', 'minutes', 'seconds'].map(id => document.getElementById(id));
-    let timer;
-    function updateCountdown() {
-      const remaining = Math.max(0, Math.floor((weddingTime - Date.now()) / 1000));
-      const values = [
-        Math.floor(remaining / 86400),
-        Math.floor(remaining / 3600) % 24,
-        Math.floor(remaining / 60) % 60,
-        remaining % 60
-      ];
-      fields.forEach((field, index) => {
-        field.textContent = String(values[index]).padStart(2, '0');
-      });
-      if (remaining === 0) {
-        document.getElementById('countdown-title').textContent = 'Our wedding weekend is here!';
-        clearInterval(timer);
-      }
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const namesOrig = names.innerHTML;
+    const ease = 'cubic-bezier(.2,.7,.2,1)';
+    let holdTick = false, raf = 0;
+
+    // Scale "Save the Weekend" and the names to a single line of the width their CSS max-width allows,
+    // so the layout holds at any screen size without wrapping.
+    function fit(el, min) {
+      el.style.fontSize = '';
+      let size = parseFloat(getComputedStyle(el).fontSize), guard = 200;
+      while (el.scrollWidth > el.clientWidth + 1 && size > min && guard--) { size -= 1; el.style.fontSize = size + 'px'; }
     }
-    updateCountdown();
-    if (Date.now() < weddingTime) timer = setInterval(updateCountdown, 1000);
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) updateCountdown();
-    });
+    function fitHeads() { fit(names, 14); fit(save, 16); }
+
+    function tick() {
+      if (holdTick) return;
+      const r = Math.max(0, Math.floor((weddingTime - Date.now()) / 1000));
+      [Math.floor(r / 86400), Math.floor(r / 3600) % 24, Math.floor(r / 60) % 60, r % 60]
+        .forEach((v, i) => fields[i].textContent = String(v).padStart(2, '0'));
+      if (r === 0) { $('countdown-title').textContent = 'Our wedding weekend is here!'; clearInterval(timer); }
+    }
+
+    function intro() {
+      // 1. The two names slide in from opposite sides and meet at the ampersand.
+      names.innerHTML = '<span style="display:inline-block">Michelle Chuang</span> <span style="display:inline-block">&amp;</span> <span style="display:inline-block">Steven Xu</span>';
+      const [a, amp, b] = names.children;
+      const slide = (e, x, d) => e.animate([{ opacity: 0, transform: 'translateX(' + x + 'px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 1300, delay: d, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'both' });
+      slide(a, -120, 250); slide(b, 120, 250);
+      amp.animate([{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(1.4)', offset: .6 }, { opacity: 1, transform: 'none' }],
+        { duration: 900, delay: 1350, easing: 'ease-out', fill: 'both' });
+      // 2. "Save the Weekend", date and location rise and fade in.
+      const rise = (el, d) => el.animate([{ opacity: 0, transform: 'translateY(20px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 1000, delay: d, easing: ease, fill: 'both' });
+      rise(save, 1750); rise($('when'), 2150); rise($('where'), 2450); rise($('countdown'), 2750);
+      // 3. The countdown counts up from zero to today's number.
+      const r = Math.max(0, Math.floor((weddingTime - Date.now()) / 1000));
+      const vals = [Math.floor(r / 86400), Math.floor(r / 3600) % 24, Math.floor(r / 60) % 60, r % 60];
+      holdTick = true; fields.forEach(f => f.textContent = '00');
+      const start = performance.now() + 2950, dur = 2000;
+      const step = now => { const k = Math.min(1, Math.max(0, (now - start) / dur)), e = 1 - Math.pow(1 - k, 3);
+        fields.forEach((f, i) => f.textContent = String(Math.round(vals[i] * e)).padStart(2, '0'));
+        if (k < 1) raf = requestAnimationFrame(step); else { holdTick = false; tick(); } };
+      raf = requestAnimationFrame(step);
+    }
+
+    fitHeads();
+    addEventListener('resize', fitHeads);
+    // Re-fit once the web fonts have loaded, in case they differ in width from the fallback.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeads);
+
+    let timer;
+    if (reduce || Date.now() >= weddingTime) { tick(); } else { intro(); }
+    if (Date.now() < weddingTime) timer = setInterval(tick, 1000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
   </script>
 </body>
 </html>
