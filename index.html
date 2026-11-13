@@ -43,15 +43,23 @@
 
     /* ---------- Phones and other tall screens: portrait photo ---------- */
     @media (orientation: portrait) {
-      .top    { background-color: #3a6cb2; background-image: url(sky-top-portrait.jpg); padding: 24px 36px 16px; }
-      .bottom { background-color: #8caac7; background-image: url(sky-bottom-portrait.jpg); padding: 16px 18px 26px; }
-      .photo  { aspect-ratio: 1024 / 890; }
+      /* Lock the page to one screen: fill the viewport, no scrolling. */
+      html, body { height: 100vh; height: 100svh; overflow: hidden; overscroll-behavior: none; }
+      .hero { height: 100vh; height: 100svh; display: flex; flex-direction: column; }
+      /* Bands fill leftover height with sky (never shrinking below their text); on short
+         screens the photo yields space instead, so the countdown is never clipped. */
+      .top, .bottom { display: flex; flex-direction: column; justify-content: center; flex: 1 1 auto; }
+      .top    { background-color: #3a6cb2; background-image: url(sky-top-portrait.jpg); padding: 12px 36px; }
+      .bottom { background-color: #8caac7; background-image: url(sky-bottom-portrait.jpg); padding: 10px 18px; }
+      .photo  { flex: 0 1 auto; min-height: 0; aspect-ratio: 1024 / 890; }
       .photo img.p { display: block; margin-top: -59.57%; }    /* native 1024×1536, window rows 610–1500 */
       .names { font-size: 44px; max-width: 94%; }               /* auto-fit shrinks to one wide line */
       .save  { font-size: 64px; max-width: 66%; }               /* narrower than the names, by design */
       .when  { font-size: 23px; }
       .where { font-size: 19px; }
       .number { font-size: 36px; }
+      .countdown { padding-top: 12px; }
+      .countdown::before { margin-bottom: 14px; }
     }
 
     /* ---------- Laptops and other wide screens: landscape photo ---------- */
